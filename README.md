@@ -1,11 +1,13 @@
 # Skillpath — Modern Learning Platform
 
-> A production-grade React & Framer solution built for the junior developer evaluation assignment.
+> A production-grade React & Framer solution engineered for high resilience, accurate localized pricing, and seamless responsive design.
 
 [![React](https://img.shields.io/badge/React-18-blue.svg)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue.svg)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-6.0-purple.svg)](https://vitejs.dev/)
-[![Framer](https://img.shields.io/badge/Framer-Code%20Component-black.svg)](https://framer.com/)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-GitHub_Pages-success.svg)](https://summi815.github.io/skillpath-assignment/)
+
+🔗 **Live Demo**: [https://summi815.github.io/skillpath-assignment/](https://summi815.github.io/skillpath-assignment/)
 
 ---
 
@@ -14,15 +16,14 @@
 2. [Key Features & Engineering Highlights](#-key-features--engineering-highlights)
 3. [Architecture & Resilience Strategy](#-architecture--resilience-strategy)
 4. [Quick Start (Run Locally)](#-quick-start-run-locally)
-5. [Framer Code Component Installation](#-framer-code-component-installation)
-6. [Testing & Evaluation Matrix](#-testing--evaluation-matrix)
-7. [Engineering Note](#-engineering-note)
-8. [AI Usage Disclosure](#-ai-usage-disclosure)
+5. [Testing & Evaluation Matrix](#-testing--evaluation-matrix)
+6. [Engineering Note](#-engineering-note)
+7. [AI Usage Disclosure](#-ai-usage-disclosure)
 
 ---
 
 ## 🎯 Project Overview
-Skillpath is a landing page for a fictional modern education platform. It features:
+Skillpath is a landing page for a modern skill-building platform. It features:
 * **Hero Section**: High-conversion brand messaging and value proposition.
 * **Courses Section**: An interactive **React Code Component** communicating with live, intentionally flaky backend APIs.
 * **Footer**: Standard utility links and corporate attribution.
@@ -46,6 +47,7 @@ Skillpath is a landing page for a fictional modern education platform. It featur
   * Real-time search filter matching course title, category, and description.
   * Numerical price sorting (Low-to-High and High-to-Low).
   * Animated skeleton shimmer loading cards.
+  * Interactive enrollment modal and active learner state tracking.
   * Refundable badges and category pills.
 
 ---
@@ -79,8 +81,9 @@ SkillpathCourses (Component)
 ## 🚀 Quick Start (Run Locally)
 
 ```bash
-# 1. Navigate to project folder
-cd skillpath-project
+# 1. Clone repository
+git clone https://github.com/summi815/skillpath-assignment.git
+cd skillpath-assignment
 
 # 2. Install dependencies
 npm install
@@ -89,18 +92,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser. The top developer bar allows you to test the Framer Property Controls in real time!
-
----
-
-## 🎨 Framer Code Component Installation
-
-1. Open your project in [Framer](https://framer.com).
-2. Go to **Assets** $\rightarrow$ **Code** $\rightarrow$ **New Component**.
-3. Name it `SkillpathCourses.tsx`.
-4. Copy the entire content from `src/framer/SkillpathCourses.tsx` and paste it into the editor.
-5. Drag `SkillpathCourses` onto your canvas.
-6. Customize the **Accent Color** and **Border Radius** in Framer's right-hand properties sidebar.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
