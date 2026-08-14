@@ -74,50 +74,56 @@ export default function SkillpathCourses({
     } | null>(null)
     const [toastMessage, setToastMessage] = React.useState<string | null>(null)
 
-    // Retry action
+    // Manual Retry action
     const handleRetry = React.useCallback(() => {
         setStatus("loading")
         setFetchCount((prev) => prev + 1)
     }, [])
 
     // ------------------------------------------------------------------------
-    // Resilient Data Fetching with AbortController & Parallel Settling
+    // Resilient Data Fetching with Auto-Retry and Parallel Settling
     // ------------------------------------------------------------------------
     React.useEffect(() => {
         const abortController = new AbortController()
         const { signal } = abortController
+
+        async function fetchWithSingleRetry(url: string): Promise<any> {
+            try {
+                const res = await fetch(url, { signal })
+                if (res.ok) return await res.json()
+                throw new Error(`HTTP ${res.status}`)
+            } catch (firstErr) {
+                if (signal.aborted) throw firstErr
+                // Micro-backoff automatic retry (improves UX on 1-in-3 flaky APIs)
+                await new Promise((r) => setTimeout(r, 600))
+                if (signal.aborted) throw firstErr
+                const retryRes = await fetch(url, { signal })
+                if (retryRes.ok) return await retryRes.json()
+                throw new Error(`HTTP ${retryRes.status}`)
+            }
+        }
 
         async function loadData() {
             setStatus("loading")
 
             try {
                 const [coursesResult, countryResult] = await Promise.allSettled([
-                    fetch(API_COURSES_URL, { signal }).then(async (res) => {
-                        if (!res.ok) {
-                            throw new Error(`Courses endpoint returned HTTP ${res.status}`)
-                        }
-                        return res.json()
-                    }),
-                    fetch(API_COUNTRY_URL, { signal }).then(async (res) => {
-                        if (!res.ok) {
-                            throw new Error(`Country endpoint returned HTTP ${res.status}`)
-                        }
-                        return res.json()
-                    }),
+                    fetchWithSingleRetry(API_COURSES_URL),
+                    fetchWithSingleRetry(API_COUNTRY_URL),
                 ])
 
                 if (signal.aborted) return
 
-                // 1. Evaluate Course API
+                // 1. Evaluate Course API (Critical Entity)
                 if (coursesResult.status === "rejected") {
-                    console.error("Course fetch failed:", coursesResult.reason)
+                    console.error("Course fetch failed after retry:", coursesResult.reason)
                     setStatus("error")
                     return
                 }
 
                 const rawCourseData = coursesResult.value
                 if (!Array.isArray(rawCourseData)) {
-                    console.error("Course API returned non-array payload:", rawCourseData)
+                    console.error("Course API returned non-array:", rawCourseData)
                     setStatus("error")
                     return
                 }
@@ -128,7 +134,7 @@ export default function SkillpathCourses({
                     return
                 }
 
-                // 2. Evaluate Country API
+                // 2. Evaluate Country API (Non-breaking Fallback Strategy)
                 if (countryResult.status === "fulfilled" && countryResult.value?.country_code) {
                     const detectedCountry = String(countryResult.value.country_code).toUpperCase()
                     setCountryCode(detectedCountry)
@@ -187,9 +193,6 @@ export default function SkillpathCourses({
         return result
     }, [courses, searchQuery, sortBy, countryCode])
 
-    // ------------------------------------------------------------------------
-    // Enrollment Action Handlers
-    // ------------------------------------------------------------------------
     const handleOpenEnrollment = (course: Course, formattedPrice: string) => {
         const id = course.courseCode || course.courseName
         if (enrolledMap[id]) {
@@ -227,7 +230,6 @@ export default function SkillpathCourses({
                 ["--sp-radius" as any]: `${cardBorderRadius}px`,
             }}
         >
-            {/* Scoped CSS Styles */}
             <style>{`
                 .sp-courses-section {
                     --sp-bg-card: #ffffff;
@@ -282,7 +284,6 @@ export default function SkillpathCourses({
                     margin: 0;
                 }
 
-                /* Controls Toolbar: Search & Sort */
                 .sp-toolbar {
                     display: flex;
                     flex-wrap: wrap;
@@ -355,7 +356,6 @@ export default function SkillpathCourses({
                     border-color: var(--sp-accent);
                 }
 
-                /* Fallback Notice Banner */
                 .sp-fallback-banner {
                     display: flex;
                     align-items: center;
@@ -370,7 +370,6 @@ export default function SkillpathCourses({
                     color: #475569;
                 }
 
-                /* Responsive Grid */
                 .sp-grid {
                     display: grid;
                     grid-template-columns: repeat(3, 1fr);
@@ -404,7 +403,6 @@ export default function SkillpathCourses({
                     }
                 }
 
-                /* Course Card Design */
                 .sp-card {
                     background: var(--sp-bg-card);
                     border: 1px solid var(--sp-border-color);
@@ -415,8 +413,8 @@ export default function SkillpathCourses({
                     flex-direction: column;
                     justify-content: space-between;
                     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-                    position: relative;
                     box-sizing: border-box;
+                    position: relative;
                 }
 
                 .sp-card.enrolled {
@@ -476,7 +474,6 @@ export default function SkillpathCourses({
                     letter-spacing: -0.01em;
                 }
 
-                /* CSS Line Clamping (2 Lines) */
                 .sp-course-desc {
                     font-size: 14px;
                     color: var(--sp-text-muted);
@@ -554,7 +551,6 @@ export default function SkillpathCourses({
                     background: #059669;
                 }
 
-                /* State Views */
                 .sp-state-container {
                     background: #ffffff;
                     border: 1px solid var(--sp-border-color);
@@ -618,7 +614,6 @@ export default function SkillpathCourses({
                     background: #334155;
                 }
 
-                /* Toast Notification */
                 .sp-toast {
                     position: fixed;
                     bottom: 30px;
@@ -644,7 +639,6 @@ export default function SkillpathCourses({
                     to { transform: translateY(0); opacity: 1; }
                 }
 
-                /* Enrollment Modal Overlay */
                 .sp-modal-backdrop {
                     position: fixed;
                     inset: 0;
@@ -726,7 +720,6 @@ export default function SkillpathCourses({
                     margin-top: 24px;
                 }
 
-                /* Skeleton Shimmer */
                 @keyframes sp-shimmer {
                     0% { background-position: -200% 0; }
                     100% { background-position: 200% 0; }
