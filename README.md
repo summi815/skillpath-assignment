@@ -2,12 +2,20 @@
 
 > A production-grade React & Framer solution engineered for high resilience, accurate localized pricing, and seamless responsive design.
 
+[![Framer Live](https://img.shields.io/badge/Framer_Site-Live_Demo-black.svg?logo=framer)](https://different-apps-984343.framer.app/)
+[![GitHub Pages](https://img.shields.io/badge/Web_App-Live_Demo-blue.svg?logo=github)](https://summi815.github.io/skillpath-assignment/)
 [![React](https://img.shields.io/badge/React-18-blue.svg)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue.svg)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-6.0-purple.svg)](https://vitejs.dev/)
-[![Live Demo](https://img.shields.io/badge/Live_Demo-GitHub_Pages-success.svg)](https://summi815.github.io/skillpath-assignment/)
 
-🔗 **Live Demo**: [https://summi815.github.io/skillpath-assignment/](https://summi815.github.io/skillpath-assignment/)
+---
+
+### 🔗 Live Demos & Submissions
+
+* 🎨 **Published Framer Site**: [https://different-apps-984343.framer.app/](https://different-apps-984343.framer.app/)
+* 🌐 **Live Web App (GitHub Pages)**: [https://summi815.github.io/skillpath-assignment/](https://summi815.github.io/skillpath-assignment/)
+* 📑 **Official Submission Document**: [SUBMISSION.md](https://github.com/summi815/skillpath-assignment/blob/main/SUBMISSION.md)
+* 🧩 **Core React Code Component**: [`src/framer/SkillpathCourses.tsx`](https://github.com/summi815/skillpath-assignment/blob/main/src/framer/SkillpathCourses.tsx)
 
 ---
 
@@ -70,7 +78,7 @@ SkillpathCourses (Component)
 │    ├── Filter by Search Query
 │    └── Sort by Numeric Converted Price
 │
-└── 4. Responsive CSS Grid
+└── 4. Responsive Auto-Fit Grid
      ├── Desktop: 3 Columns
      ├── Tablet:  2 Columns
      └── Mobile:  1 Column
