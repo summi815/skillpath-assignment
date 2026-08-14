@@ -1,13 +1,6 @@
 import * as React from "react"
 import { addPropertyControls, ControlType } from "framer"
 
-/**
- * ============================================================================
- * SKILLPATH - COURSES REACT CODE COMPONENT FOR FRAMER
- * ============================================================================
- * Copy and paste this file directly into Framer -> Assets -> Code -> New Component.
- */
-
 export interface Course {
     courseName: string
     courseCode: string
@@ -47,10 +40,7 @@ function formatPrice(
             currency: "INR",
             maximumFractionDigits: 0,
         })
-        return {
-            formatted: formatter.format(rupees),
-            numericValue: rupees,
-        }
+        return { formatted: formatter.format(rupees), numericValue: rupees }
     }
 
     const cents = typeof course.priceUsdCents === "number" ? course.priceUsdCents : 0
@@ -61,11 +51,62 @@ function formatPrice(
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
     })
-    return {
-        formatted: formatter.format(dollars),
-        numericValue: dollars,
-    }
+    return { formatted: formatter.format(dollars), numericValue: dollars }
 }
+
+const STYLES_CSS = `
+.sp-courses-section {
+    --sp-bg-card: #ffffff;
+    --sp-text-main: #0f172a;
+    --sp-text-muted: #64748b;
+    --sp-border-color: #e2e8f0;
+    --sp-card-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+    --sp-card-shadow-hover: 0 16px 32px -4px rgba(15, 23, 42, 0.1);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 16px 64px 16px;
+    box-sizing: border-box;
+    color: #0f172a;
+    position: relative;
+}
+.sp-header-wrap { text-align: center; max-width: 720px; margin: 0 auto 32px auto; }
+.sp-badge-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 9999px; background-color: rgba(37, 99, 235, 0.08); font-size: 13px; font-weight: 600; margin-bottom: 12px; }
+.sp-title { font-size: 32px; font-weight: 800; line-height: 1.2; letter-spacing: -0.03em; margin: 0 0 12px 0; color: #0f172a; }
+.sp-subtitle { font-size: 16px; color: #64748b; line-height: 1.5; margin: 0; }
+.sp-toolbar { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; margin-bottom: 28px; }
+.sp-search-box { position: relative; flex: 1 1 240px; max-width: 380px; }
+.sp-search-input { width: 100%; padding: 10px 14px 10px 36px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 14px; background: #ffffff; outline: none; box-sizing: border-box; }
+.sp-search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 14px; pointer-events: none; }
+.sp-sort-group { display: flex; align-items: center; gap: 8px; }
+.sp-sort-label { font-size: 13px; font-weight: 500; color: #64748b; }
+.sp-sort-select { padding: 8px 12px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 14px; font-weight: 500; background: #ffffff; cursor: pointer; outline: none; }
+.sp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; }
+@media (max-width: 900px) { .sp-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .sp-grid { grid-template-columns: 1fr; } .sp-title { font-size: 26px; } .sp-toolbar { flex-direction: column; align-items: stretch; } }
+.sp-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: var(--sp-radius, 16px); box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05); padding: 22px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s ease, box-shadow 0.2s ease; box-sizing: border-box; }
+.sp-card.enrolled { border-color: #10b981; background: #f0fdf4; }
+.sp-card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08); }
+.sp-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 12px; }
+.sp-category-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 4px 10px; border-radius: 6px; }
+.sp-refundable-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; color: #059669; background: #ecfdf5; border: 1px solid #a7f3d0; padding: 3px 8px; border-radius: 9999px; }
+.sp-course-title { font-size: 18px; font-weight: 700; line-height: 1.35; color: #0f172a; margin: 0 0 8px 0; }
+.sp-course-desc { font-size: 13.5px; color: #64748b; line-height: 1.5; margin: 0 0 16px 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 40px; }
+.sp-card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; border-top: 1px solid #f1f5f9; margin-top: auto; }
+.sp-price-wrap { display: flex; flex-direction: column; }
+.sp-price-label { font-size: 11px; font-weight: 500; color: #94a3b8; text-transform: uppercase; }
+.sp-price-val { font-size: 20px; font-weight: 800; color: #0f172a; }
+.sp-enroll-btn { background: var(--sp-accent, #2563eb); color: #ffffff; border: none; border-radius: 8px; padding: 9px 16px; font-size: 13px; font-weight: 600; cursor: pointer; transition: filter 0.15s ease; outline: none; }
+.sp-enroll-btn.enrolled-btn { background: #10b981; color: #ffffff; }
+.sp-state-container { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 40px 20px; text-align: center; max-width: 480px; margin: 20px auto; }
+.sp-retry-btn { background: #0f172a; color: #ffffff; border: none; border-radius: 8px; padding: 10px 20px; font-size: 14px; font-weight: 600; cursor: pointer; }
+.sp-modal-backdrop { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.sp-modal-card { background: #ffffff; border-radius: 16px; max-width: 460px; width: 100%; padding: 28px; position: relative; }
+.sp-modal-close { position: absolute; top: 16px; right: 16px; background: #f1f5f9; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; color: #64748b; }
+.sp-modal-perks { margin: 16px 0; padding: 14px; background: #f8fafc; border-radius: 10px; display: flex; flex-direction: column; gap: 8px; font-size: 13px; color: #334155; }
+.sp-toast { position: fixed; bottom: 24px; right: 24px; z-index: 10000; background: #0f172a; color: #ffffff; padding: 12px 18px; border-radius: 10px; font-size: 13px; font-weight: 600; }
+`
 
 export default function SkillpathCourses({
     accentColor = "#2563EB",
@@ -80,7 +121,6 @@ export default function SkillpathCourses({
     const [sortBy, setSortBy] = React.useState<SortOption>("featured")
     const [fetchCount, setFetchCount] = React.useState<number>(0)
 
-    // Enrollment Management State
     const [enrolledMap, setEnrolledMap] = React.useState<Record<string, boolean>>({})
     const [selectedCourseForModal, setSelectedCourseForModal] = React.useState<{
         course: Course
@@ -88,35 +128,49 @@ export default function SkillpathCourses({
     } | null>(null)
     const [toastMessage, setToastMessage] = React.useState<string | null>(null)
 
+    // Inject styles cleanly into document head for Framer SSR safety
+    React.useEffect(() => {
+        if (typeof document !== "undefined") {
+            const styleId = "sp-injected-styles"
+            if (!document.getElementById(styleId)) {
+                const styleTag = document.createElement("style")
+                styleTag.id = styleId
+                styleTag.textContent = STYLES_CSS
+                document.head.appendChild(styleTag)
+            }
+        }
+    }, [])
+
     const handleRetry = React.useCallback(() => {
         setStatus("loading")
         setFetchCount((prev) => prev + 1)
     }, [])
 
     React.useEffect(() => {
-        const abortController = new AbortController()
-        const { signal } = abortController
+        let isMounted = true
+
+        async function fetchWithRetry(url: string) {
+            try {
+                const res = await fetch(url)
+                if (res.ok) return await res.json()
+                throw new Error(`HTTP ${res.status}`)
+            } catch (firstErr) {
+                await new Promise((r) => setTimeout(r, 600))
+                const retryRes = await fetch(url)
+                if (retryRes.ok) return await retryRes.json()
+                throw new Error(`HTTP ${retryRes.status}`)
+            }
+        }
 
         async function loadData() {
             setStatus("loading")
-
             try {
                 const [coursesResult, countryResult] = await Promise.allSettled([
-                    fetch(API_COURSES_URL, { signal }).then(async (res) => {
-                        if (!res.ok) {
-                            throw new Error(`Courses endpoint returned HTTP ${res.status}`)
-                        }
-                        return res.json()
-                    }),
-                    fetch(API_COUNTRY_URL, { signal }).then(async (res) => {
-                        if (!res.ok) {
-                            throw new Error(`Country endpoint returned HTTP ${res.status}`)
-                        }
-                        return res.json()
-                    }),
+                    fetchWithRetry(API_COURSES_URL),
+                    fetchWithRetry(API_COUNTRY_URL),
                 ])
 
-                if (signal.aborted) return
+                if (!isMounted) return
 
                 if (coursesResult.status === "rejected") {
                     console.error("Course fetch failed:", coursesResult.reason)
@@ -124,48 +178,37 @@ export default function SkillpathCourses({
                     return
                 }
 
-                const rawCourseData = coursesResult.value
-                if (!Array.isArray(rawCourseData)) {
-                    console.error("Course API returned non-array payload:", rawCourseData)
-                    setStatus("error")
-                    return
-                }
-
-                if (rawCourseData.length === 0) {
+                const rawData = coursesResult.value
+                if (!Array.isArray(rawData) || rawData.length === 0) {
                     setCourses([])
                     setStatus("empty")
                     return
                 }
 
                 if (countryResult.status === "fulfilled" && countryResult.value?.country_code) {
-                    const detectedCountry = String(countryResult.value.country_code).toUpperCase()
-                    setCountryCode(detectedCountry)
+                    setCountryCode(String(countryResult.value.country_code).toUpperCase())
                     setCountryFailed(false)
                 } else {
-                    console.warn("Country code API failed; defaulting safely to:", DEFAULT_FALLBACK_COUNTRY)
                     setCountryCode(DEFAULT_FALLBACK_COUNTRY)
                     setCountryFailed(true)
                 }
 
-                setCourses(rawCourseData)
+                setCourses(rawData)
                 setStatus("success")
-            } catch (err: any) {
-                if (signal.aborted) return
-                console.error("Unexpected fetch error:", err)
+            } catch (err) {
+                if (!isMounted) return
                 setStatus("error")
             }
         }
 
         loadData()
-
         return () => {
-            abortController.abort()
+            isMounted = false
         }
     }, [fetchCount])
 
     const filteredAndSortedCourses = React.useMemo(() => {
         if (!courses || courses.length === 0) return []
-
         const query = searchQuery.trim().toLowerCase()
         let result = courses.filter((course) => {
             if (!query) return true
@@ -176,27 +219,18 @@ export default function SkillpathCourses({
         })
 
         if (sortBy === "price-asc") {
-            result = [...result].sort((a, b) => {
-                const priceA = formatPrice(a, countryCode).numericValue
-                const priceB = formatPrice(b, countryCode).numericValue
-                return priceA - priceB
-            })
+            result = [...result].sort((a, b) => formatPrice(a, countryCode).numericValue - formatPrice(b, countryCode).numericValue)
         } else if (sortBy === "price-desc") {
-            result = [...result].sort((a, b) => {
-                const priceA = formatPrice(a, countryCode).numericValue
-                const priceB = formatPrice(b, countryCode).numericValue
-                return priceB - priceA
-            })
+            result = [...result].sort((a, b) => formatPrice(b, countryCode).numericValue - formatPrice(a, countryCode).numericValue)
         }
-
         return result
     }, [courses, searchQuery, sortBy, countryCode])
 
     const handleOpenEnrollment = (course: Course, formattedPrice: string) => {
         const id = course.courseCode || course.courseName
         if (enrolledMap[id]) {
-            setToastMessage(`✓ You have already joined "${course.courseName}". Access details sent to your email!`)
-            setTimeout(() => setToastMessage(null), 4000)
+            setToastMessage(`✓ You are already enrolled in "${course.courseName}".`)
+            setTimeout(() => setToastMessage(null), 3000)
             return
         }
         setSelectedCourseForModal({ course, formattedPrice })
@@ -206,585 +240,49 @@ export default function SkillpathCourses({
         if (!selectedCourseForModal) return
         const course = selectedCourseForModal.course
         const id = course.courseCode || course.courseName
-
-        setEnrolledMap((prev) => ({
-            ...prev,
-            [id]: true,
-        }))
-
-        const courseTitle = course.courseName
+        setEnrolledMap((prev) => ({ ...prev, [id]: true }))
+        const title = course.courseName
         setSelectedCourseForModal(null)
-        setToastMessage(`🎉 Congratulations! You are now enrolled in "${courseTitle}". Welcome aboard!`)
-
-        setTimeout(() => {
-            setToastMessage(null)
-        }, 5000)
+        setToastMessage(`🎉 Congratulations! You are enrolled in "${title}".`)
+        setTimeout(() => setToastMessage(null), 4000)
     }
 
     return (
         <section
             className="sp-courses-section"
             style={{
-                ["--sp-accent" as any]: accentColor,
-                ["--sp-radius" as any]: `${cardBorderRadius}px`,
+                // @ts-ignore
+                "--sp-accent": accentColor,
+                // @ts-ignore
+                "--sp-radius": `${cardBorderRadius}px`,
             }}
         >
-            <style>{`
-                .sp-courses-section {
-                    --sp-bg-card: #ffffff;
-                    --sp-text-main: #0f172a;
-                    --sp-text-muted: #64748b;
-                    --sp-border-color: #e2e8f0;
-                    --sp-card-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
-                    --sp-card-shadow-hover: 0 16px 32px -4px rgba(15, 23, 42, 0.1), 0 4px 12px -2px rgba(15, 23, 42, 0.06);
-                    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-                    width: 100%;
-                    max-width: 1200px;
-                    margin: 0 auto;
-                    padding: 48px 24px 80px 24px;
-                    box-sizing: border-box;
-                    color: var(--sp-text-main);
-                    position: relative;
-                }
-
-                .sp-header-wrap {
-                    text-align: center;
-                    max-width: 720px;
-                    margin: 0 auto 36px auto;
-                }
-
-                .sp-badge-pill {
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 6px;
-                    padding: 6px 14px;
-                    border-radius: 9999px;
-                    background-color: rgba(37, 99, 235, 0.08);
-                    color: var(--sp-accent);
-                    font-size: 13px;
-                    font-weight: 600;
-                    letter-spacing: 0.02em;
-                    margin-bottom: 12px;
-                }
-
-                .sp-title {
-                    font-size: 36px;
-                    font-weight: 800;
-                    line-height: 1.2;
-                    letter-spacing: -0.03em;
-                    margin: 0 0 12px 0;
-                    color: var(--sp-text-main);
-                }
-
-                .sp-subtitle {
-                    font-size: 17px;
-                    color: var(--sp-text-muted);
-                    line-height: 1.5;
-                    margin: 0;
-                }
-
-                .sp-toolbar {
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 12px;
-                    justify-content: space-between;
-                    align-items: center;
-                    margin-bottom: 32px;
-                }
-
-                .sp-search-box {
-                    position: relative;
-                    flex: 1 1 280px;
-                    max-width: 400px;
-                }
-
-                .sp-search-icon {
-                    position: absolute;
-                    left: 14px;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    color: #94a3b8;
-                    pointer-events: none;
-                    display: flex;
-                }
-
-                .sp-search-input {
-                    width: 100%;
-                    padding: 12px 14px 12px 42px;
-                    border: 1px solid var(--sp-border-color);
-                    border-radius: calc(var(--sp-radius) * 0.75);
-                    font-size: 14px;
-                    background: #ffffff;
-                    color: var(--sp-text-main);
-                    outline: none;
-                    transition: border-color 0.15s ease, box-shadow 0.15s ease;
-                    box-sizing: border-box;
-                }
-
-                .sp-search-input:focus {
-                    border-color: var(--sp-accent);
-                    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-                }
-
-                .sp-sort-group {
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                }
-
-                .sp-sort-label {
-                    font-size: 13px;
-                    font-weight: 500;
-                    color: var(--sp-text-muted);
-                }
-
-                .sp-sort-select {
-                    padding: 10px 14px;
-                    border: 1px solid var(--sp-border-color);
-                    border-radius: calc(var(--sp-radius) * 0.75);
-                    font-size: 14px;
-                    font-weight: 500;
-                    background: #ffffff;
-                    color: var(--sp-text-main);
-                    cursor: pointer;
-                    outline: none;
-                    transition: border-color 0.15s ease;
-                }
-
-                .sp-sort-select:focus {
-                    border-color: var(--sp-accent);
-                }
-
-                .sp-fallback-banner {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    gap: 12px;
-                    padding: 10px 16px;
-                    border-radius: calc(var(--sp-radius) * 0.6);
-                    background-color: #f8fafc;
-                    border: 1px solid #e2e8f0;
-                    margin-bottom: 24px;
-                    font-size: 13px;
-                    color: #475569;
-                }
-
-                .sp-grid {
-                    display: grid;
-                    grid-template-columns: repeat(3, 1fr);
-                    gap: 24px;
-                    width: 100%;
-                }
-
-                @media (max-width: 1024px) {
-                    .sp-grid {
-                        grid-template-columns: repeat(2, 1fr);
-                    }
-                }
-
-                @media (max-width: 640px) {
-                    .sp-grid {
-                        grid-template-columns: 1fr;
-                        gap: 18px;
-                    }
-                    .sp-title {
-                        font-size: 28px;
-                    }
-                    .sp-toolbar {
-                        flex-direction: column;
-                        align-items: stretch;
-                    }
-                    .sp-search-box {
-                        max-width: 100%;
-                    }
-                    .sp-sort-group {
-                        justify-content: space-between;
-                    }
-                }
-
-                .sp-card {
-                    background: var(--sp-bg-card);
-                    border: 1px solid var(--sp-border-color);
-                    border-radius: var(--sp-radius);
-                    box-shadow: var(--sp-card-shadow);
-                    padding: 24px;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-between;
-                    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-                    box-sizing: border-box;
-                    position: relative;
-                }
-
-                .sp-card.enrolled {
-                    border-color: #10b981;
-                    background: #f0fdf4;
-                }
-
-                .sp-card:hover {
-                    transform: translateY(-4px);
-                    box-shadow: var(--sp-card-shadow-hover);
-                    border-color: #cbd5e1;
-                }
-
-                .sp-card.enrolled:hover {
-                    border-color: #059669;
-                }
-
-                .sp-card-top {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: flex-start;
-                    gap: 8px;
-                    margin-bottom: 14px;
-                }
-
-                .sp-category-tag {
-                    font-size: 11px;
-                    font-weight: 700;
-                    text-transform: uppercase;
-                    letter-spacing: 0.05em;
-                    color: var(--sp-accent);
-                    background: rgba(37, 99, 235, 0.06);
-                    padding: 4px 10px;
-                    border-radius: 6px;
-                }
-
-                .sp-refundable-badge {
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 4px;
-                    font-size: 11px;
-                    font-weight: 600;
-                    color: #059669;
-                    background: #ecfdf5;
-                    border: 1px solid #a7f3d0;
-                    padding: 3px 8px;
-                    border-radius: 9999px;
-                    white-space: nowrap;
-                }
-
-                .sp-course-title {
-                    font-size: 20px;
-                    font-weight: 700;
-                    line-height: 1.35;
-                    color: var(--sp-text-main);
-                    margin: 0 0 10px 0;
-                    letter-spacing: -0.01em;
-                }
-
-                .sp-course-desc {
-                    font-size: 14px;
-                    color: var(--sp-text-muted);
-                    line-height: 1.55;
-                    margin: 0 0 20px 0;
-                    display: -webkit-box;
-                    -webkit-line-clamp: 2;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    min-height: 44px;
-                }
-
-                .sp-card-footer {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    padding-top: 16px;
-                    border-top: 1px solid #f1f5f9;
-                    margin-top: auto;
-                }
-
-                .sp-price-wrap {
-                    display: flex;
-                    flex-direction: column;
-                }
-
-                .sp-price-label {
-                    font-size: 11px;
-                    font-weight: 500;
-                    color: #94a3b8;
-                    text-transform: uppercase;
-                    letter-spacing: 0.03em;
-                }
-
-                .sp-price-val {
-                    font-size: 22px;
-                    font-weight: 800;
-                    color: var(--sp-text-main);
-                    letter-spacing: -0.02em;
-                }
-
-                .sp-enroll-btn {
-                    background: var(--sp-accent);
-                    color: #ffffff;
-                    border: none;
-                    border-radius: calc(var(--sp-radius) * 0.6);
-                    padding: 10px 18px;
-                    font-size: 13px;
-                    font-weight: 600;
-                    cursor: pointer;
-                    transition: filter 0.15s ease, transform 0.15s ease, background-color 0.2s;
-                    outline: none;
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 6px;
-                }
-
-                .sp-enroll-btn:hover {
-                    filter: brightness(1.1);
-                    transform: scale(1.02);
-                }
-
-                .sp-enroll-btn:active {
-                    transform: scale(0.98);
-                }
-
-                .sp-enroll-btn.enrolled-btn {
-                    background: #10b981;
-                    color: #ffffff;
-                    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
-                }
-
-                .sp-enroll-btn.enrolled-btn:hover {
-                    background: #059669;
-                }
-
-                .sp-state-container {
-                    background: #ffffff;
-                    border: 1px solid var(--sp-border-color);
-                    border-radius: var(--sp-radius);
-                    padding: 48px 24px;
-                    text-align: center;
-                    max-width: 520px;
-                    margin: 20px auto;
-                    box-shadow: var(--sp-card-shadow);
-                }
-
-                .sp-state-icon {
-                    width: 48px;
-                    height: 48px;
-                    margin: 0 auto 16px auto;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    border-radius: 50%;
-                }
-
-                .sp-state-icon.error {
-                    background: #fee2e2;
-                    color: #dc2626;
-                }
-
-                .sp-state-icon.empty {
-                    background: #f1f5f9;
-                    color: #64748b;
-                }
-
-                .sp-state-title {
-                    font-size: 20px;
-                    font-weight: 700;
-                    margin: 0 0 8px 0;
-                }
-
-                .sp-state-desc {
-                    font-size: 14px;
-                    color: var(--sp-text-muted);
-                    line-height: 1.5;
-                    margin: 0 0 20px 0;
-                }
-
-                .sp-retry-btn {
-                    background: var(--sp-text-main);
-                    color: #ffffff;
-                    border: none;
-                    border-radius: calc(var(--sp-radius) * 0.6);
-                    padding: 10px 22px;
-                    font-size: 14px;
-                    font-weight: 600;
-                    cursor: pointer;
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 8px;
-                    transition: background 0.15s ease;
-                }
-
-                .sp-retry-btn:hover {
-                    background: #334155;
-                }
-
-                .sp-toast {
-                    position: fixed;
-                    bottom: 30px;
-                    right: 30px;
-                    z-index: 9999;
-                    background: #0f172a;
-                    color: #ffffff;
-                    padding: 14px 20px;
-                    border-radius: 12px;
-                    font-size: 14px;
-                    font-weight: 600;
-                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-                    display: flex;
-                    align-items: center;
-                    gap: 12px;
-                    animation: sp-toast-in 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-                    max-width: 420px;
-                    border: 1px solid #334155;
-                }
-
-                @keyframes sp-toast-in {
-                    from { transform: translateY(20px); opacity: 0; }
-                    to { transform: translateY(0); opacity: 1; }
-                }
-
-                .sp-modal-backdrop {
-                    position: fixed;
-                    inset: 0;
-                    background: rgba(15, 23, 42, 0.6);
-                    backdrop-filter: blur(4px);
-                    z-index: 9998;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    padding: 20px;
-                    animation: sp-fade-in 0.2s ease-out;
-                }
-
-                @keyframes sp-fade-in {
-                    from { opacity: 0; }
-                    to { opacity: 1; }
-                }
-
-                .sp-modal-card {
-                    background: #ffffff;
-                    border-radius: var(--sp-radius);
-                    max-width: 480px;
-                    width: 100%;
-                    padding: 32px;
-                    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-                    position: relative;
-                    animation: sp-scale-up 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-                    box-sizing: border-box;
-                }
-
-                @keyframes sp-scale-up {
-                    from { transform: scale(0.95); opacity: 0; }
-                    to { transform: scale(1); opacity: 1; }
-                }
-
-                .sp-modal-close {
-                    position: absolute;
-                    top: 18px;
-                    right: 18px;
-                    background: #f1f5f9;
-                    border: none;
-                    width: 32px;
-                    height: 32px;
-                    border-radius: 50%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    cursor: pointer;
-                    color: #64748b;
-                    transition: background 0.15s;
-                }
-
-                .sp-modal-close:hover {
-                    background: #e2e8f0;
-                    color: #0f172a;
-                }
-
-                .sp-modal-perks {
-                    margin: 20px 0;
-                    padding: 16px;
-                    background: #f8fafc;
-                    border-radius: calc(var(--sp-radius) * 0.6);
-                    display: flex;
-                    flex-direction: column;
-                    gap: 10px;
-                    font-size: 13px;
-                    color: #334155;
-                }
-
-                .sp-modal-perk-item {
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                }
-
-                .sp-modal-actions {
-                    display: flex;
-                    gap: 12px;
-                    margin-top: 24px;
-                }
-
-                @keyframes sp-shimmer {
-                    0% { background-position: -200% 0; }
-                    100% { background-position: 200% 0; }
-                }
-
-                .sp-skeleton-box {
-                    background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
-                    background-size: 200% 100%;
-                    animation: sp-shimmer 1.6s infinite linear;
-                    border-radius: 6px;
-                }
-
-                .sp-skeleton-card {
-                    background: #ffffff;
-                    border: 1px solid var(--sp-border-color);
-                    border-radius: var(--sp-radius);
-                    padding: 24px;
-                    box-sizing: border-box;
-                    display: flex;
-                    flex-direction: column;
-                    gap: 14px;
-                }
-            `}</style>
-
             <div className="sp-header-wrap">
-                <span className="sp-badge-pill">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                    </svg>
+                <span className="sp-badge-pill" style={{ color: accentColor }}>
                     Practical Masterclasses
                 </span>
                 <h2 className="sp-title">Explore Career-Defining Skills</h2>
-                <p className="sp-subtitle">
-                    Learn direct, battle-tested frameworks from industry operators. Built for modern creators and builders.
-                </p>
+                <p className="sp-subtitle">Learn direct, battle-tested frameworks from industry operators.</p>
             </div>
 
             {status !== "error" && (
                 <div className="sp-toolbar">
                     <div className="sp-search-box">
-                        <span className="sp-search-icon" aria-hidden="true">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <circle cx="11" cy="11" r="8" />
-                                <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                            </svg>
-                        </span>
+                        <span className="sp-search-icon">🔍</span>
                         <input
                             type="text"
                             className="sp-search-input"
                             placeholder="Search courses or categories..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            aria-label="Search courses"
                         />
                     </div>
-
                     <div className="sp-sort-group">
-                        <label htmlFor="sp-sort-select" className="sp-sort-label">
-                            Sort by:
-                        </label>
+                        <label className="sp-sort-label">Sort by:</label>
                         <select
-                            id="sp-sort-select"
                             className="sp-sort-select"
                             value={sortBy}
                             onChange={(e) => setSortBy(e.target.value as SortOption)}
-                            aria-label="Sort courses"
                         >
                             <option value="featured">Featured (Default)</option>
                             <option value="price-asc">Price: Low to High</option>
@@ -794,86 +292,26 @@ export default function SkillpathCourses({
                 </div>
             )}
 
-            {status === "success" && countryFailed && (
-                <div className="sp-fallback-banner" role="status">
-                    <span>
-                        <strong>Note:</strong> Standard USD pricing shown (location service temporarily unavailable).
-                    </span>
-                    <span style={{ fontSize: "12px", color: "#64748b" }}>
-                        All guarantees & course access remain fully active.
-                    </span>
-                </div>
-            )}
-
             {status === "loading" && (
-                <div className="sp-grid" aria-busy="true" aria-label="Loading available courses">
-                    {[1, 2, 3, 4, 5, 6].map((idx) => (
-                        <div key={idx} className="sp-skeleton-card">
-                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                <div className="sp-skeleton-box" style={{ width: "90px", height: "20px" }} />
-                                <div className="sp-skeleton-box" style={{ width: "65px", height: "18px", borderRadius: "9999px" }} />
-                            </div>
-                            <div className="sp-skeleton-box" style={{ width: "85%", height: "24px", marginTop: "4px" }} />
-                            <div className="sp-skeleton-box" style={{ width: "100%", height: "16px" }} />
-                            <div className="sp-skeleton-box" style={{ width: "70%", height: "16px" }} />
-                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "16px", paddingTop: "14px", borderTop: "1px solid #f1f5f9" }}>
-                                <div className="sp-skeleton-box" style={{ width: "70px", height: "28px" }} />
-                                <div className="sp-skeleton-box" style={{ width: "84px", height: "36px", borderRadius: "8px" }} />
-                            </div>
+                <div className="sp-grid">
+                    {[1, 2, 3, 4, 5, 6].map((i) => (
+                        <div key={i} className="sp-card" style={{ minHeight: "220px", background: "#f8fafc" }}>
+                            <div style={{ height: "18px", width: "40%", background: "#e2e8f0", borderRadius: "4px", marginBottom: "12px" }} />
+                            <div style={{ height: "24px", width: "80%", background: "#e2e8f0", borderRadius: "4px", marginBottom: "8px" }} />
+                            <div style={{ height: "14px", width: "100%", background: "#e2e8f0", borderRadius: "4px", marginBottom: "16px" }} />
+                            <div style={{ height: "36px", width: "100%", background: "#e2e8f0", borderRadius: "8px", marginTop: "auto" }} />
                         </div>
                     ))}
                 </div>
             )}
 
             {status === "error" && (
-                <div className="sp-state-container" role="alert">
-                    <div className="sp-state-icon error">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                            <circle cx="12" cy="12" r="10" />
-                            <line x1="12" y1="8" x2="12" y2="12" />
-                            <line x1="12" y1="16" x2="12.01" y2="16" />
-                        </svg>
-                    </div>
-                    <h3 className="sp-state-title">Unable to Load Courses</h3>
-                    <p className="sp-state-desc">
-                        We encountered a temporary connection issue while retrieving the latest course schedule. Please try refreshing.
-                    </p>
-                    <button className="sp-retry-btn" onClick={handleRetry}>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67" />
-                        </svg>
-                        Retry Connection
-                    </button>
+                <div className="sp-state-container">
+                    <h3 style={{ fontSize: "18px", fontWeight: 700, margin: "0 0 8px 0" }}>Unable to Load Courses</h3>
+                    <p style={{ fontSize: "14px", color: "#64748b", margin: "0 0 16px 0" }}>A temporary connection issue occurred with the mock API.</p>
+                    <button className="sp-retry-btn" onClick={handleRetry}>Retry Connection</button>
                 </div>
             )}
-
-            {status === "empty" || (status === "success" && filteredAndSortedCourses.length === 0) ? (
-                <div className="sp-state-container" role="status">
-                    <div className="sp-state-icon empty">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <circle cx="11" cy="11" r="8" />
-                            <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                        </svg>
-                    </div>
-                    <h3 className="sp-state-title">
-                        {status === "empty" ? "No Courses Available" : "No Matching Courses Found"}
-                    </h3>
-                    <p className="sp-state-desc">
-                        {status === "empty"
-                            ? "There are currently no active cohorts scheduled. Check back shortly for upcoming releases."
-                            : `No results matching "${searchQuery}". Try searching for another keyword or clear your filter.`}
-                    </p>
-                    {searchQuery && (
-                        <button
-                            className="sp-retry-btn"
-                            onClick={() => setSearchQuery("")}
-                            style={{ background: "#475569" }}
-                        >
-                            Clear Search Filter
-                        </button>
-                    )}
-                </div>
-            ) : null}
 
             {status === "success" && filteredAndSortedCourses.length > 0 && (
                 <div className="sp-grid">
@@ -886,61 +324,32 @@ export default function SkillpathCourses({
                             <article key={key} className={`sp-card ${isEnrolled ? "enrolled" : ""}`}>
                                 <div>
                                     <div className="sp-card-top">
-                                        <span className="sp-category-tag">
+                                        <span className="sp-category-tag" style={{ color: accentColor, background: `${accentColor}14` }}>
                                             {course.mainCategory || "Course"}
                                         </span>
-
                                         {isEnrolled ? (
-                                            <span className="sp-refundable-badge" style={{ background: "#dcfce7", color: "#15803d", borderColor: "#86efac" }}>
-                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                                                    <polyline points="20 6 9 17 4 12" />
-                                                </svg>
-                                                Active Learner
-                                            </span>
+                                            <span className="sp-refundable-badge" style={{ background: "#dcfce7", color: "#15803d" }}>Active Learner</span>
                                         ) : course.refundable ? (
-                                            <span className="sp-refundable-badge" title="100% Refundable within 14 days">
-                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                                                    <polyline points="20 6 9 17 4 12" />
-                                                </svg>
-                                                Refundable
-                                            </span>
+                                            <span className="sp-refundable-badge">Refundable</span>
                                         ) : null}
                                     </div>
-
-                                    <h3 className="sp-course-title">
-                                        {course.courseName || "Untitled Course"}
-                                    </h3>
-
-                                    <p className="sp-course-desc" title={course.description}>
-                                        {course.description || "Comprehensive hands-on training and actionable frameworks."}
-                                    </p>
+                                    <h3 className="sp-course-title">{course.courseName}</h3>
+                                    <p className="sp-course-desc">{course.description}</p>
                                 </div>
-
                                 <div className="sp-card-footer">
                                     <div className="sp-price-wrap">
-                                        <span className="sp-price-label">
-                                            {isEnrolled ? "Status" : "Tuition"}
-                                        </span>
-                                        <span className="sp-price-val" style={{ fontSize: isEnrolled ? "18px" : "22px", color: isEnrolled ? "#10b981" : "inherit" }}>
+                                        <span className="sp-price-label">{isEnrolled ? "Status" : "Tuition"}</span>
+                                        <span className="sp-price-val" style={{ color: isEnrolled ? "#10b981" : "#0f172a" }}>
                                             {isEnrolled ? "Enrolled" : priceInfo.formatted}
                                         </span>
                                     </div>
                                     <button
                                         type="button"
                                         className={`sp-enroll-btn ${isEnrolled ? "enrolled-btn" : ""}`}
+                                        style={{ backgroundColor: isEnrolled ? "#10b981" : accentColor }}
                                         onClick={() => handleOpenEnrollment(course, priceInfo.formatted)}
-                                        aria-label={isEnrolled ? `You are enrolled in ${course.courseName}` : `Enroll in ${course.courseName} for ${priceInfo.formatted}`}
                                     >
-                                        {isEnrolled ? (
-                                            <>
-                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                                                    <polyline points="20 6 9 17 4 12" />
-                                                </svg>
-                                                Enrolled ✓
-                                            </>
-                                        ) : (
-                                            "Enroll Now"
-                                        )}
+                                        {isEnrolled ? "Enrolled ✓" : "Enroll Now"}
                                     </button>
                                 </div>
                             </article>
@@ -949,71 +358,40 @@ export default function SkillpathCourses({
                 </div>
             )}
 
-            {/* Interactive Enrollment Modal */}
             {selectedCourseForModal && (
                 <div className="sp-modal-backdrop" onClick={() => setSelectedCourseForModal(null)}>
-                    <div className="sp-modal-card" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true">
-                        <button
-                            className="sp-modal-close"
-                            onClick={() => setSelectedCourseForModal(null)}
-                            aria-label="Close modal"
-                        >
-                            ✕
-                        </button>
-
-                        <span className="sp-badge-pill" style={{ marginBottom: "8px" }}>
-                            {selectedCourseForModal.course.mainCategory || "Masterclass"}
+                    <div className="sp-modal-card" onClick={(e) => e.stopPropagation()}>
+                        <button className="sp-modal-close" onClick={() => setSelectedCourseForModal(null)}>✕</button>
+                        <span className="sp-badge-pill" style={{ color: accentColor, marginBottom: "8px" }}>
+                            {selectedCourseForModal.course.mainCategory}
                         </span>
-
-                        <h3 style={{ fontSize: "24px", fontWeight: 800, margin: "6px 0 10px 0", color: "#0f172a" }}>
-                            {selectedCourseForModal.course.courseName}
-                        </h3>
-
-                        <p style={{ fontSize: "14px", color: "#64748b", lineHeight: 1.6, margin: 0 }}>
-                            {selectedCourseForModal.course.description}
-                        </p>
-
+                        <h3 style={{ fontSize: "22px", fontWeight: 800, margin: "6px 0 8px 0" }}>{selectedCourseForModal.course.courseName}</h3>
+                        <p style={{ fontSize: "14px", color: "#64748b", lineHeight: 1.5, margin: "0 0 16px 0" }}>{selectedCourseForModal.course.description}</p>
                         <div className="sp-modal-perks">
-                            <div className="sp-modal-perk-item">
-                                <span style={{ color: "#10b981", fontWeight: "bold" }}>✓</span>
-                                <span>Lifetime access to cohort recordings & blueprints</span>
-                            </div>
-                            <div className="sp-modal-perk-item">
-                                <span style={{ color: "#10b981", fontWeight: "bold" }}>✓</span>
-                                <span>Direct async instructor Q&A and project reviews</span>
-                            </div>
+                            <div>✓ Lifetime access to cohort blueprints & recordings</div>
+                            <div>✓ Direct async instructor feedback</div>
                             {selectedCourseForModal.course.refundable && (
-                                <div className="sp-modal-perk-item">
-                                    <span style={{ color: "#10b981", fontWeight: "bold" }}>✓</span>
-                                    <span><strong>100% money-back guarantee</strong> within 14 days</span>
-                                </div>
+                                <div>✓ <strong>100% money-back guarantee</strong> within 14 days</div>
                             )}
                         </div>
-
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 0", borderTop: "1px solid #e2e8f0" }}>
-                            <span style={{ fontSize: "14px", color: "#64748b", fontWeight: 500 }}>Total Tuition:</span>
-                            <span style={{ fontSize: "24px", fontWeight: 800, color: "#0f172a" }}>
-                                {selectedCourseForModal.formattedPrice}
-                            </span>
+                            <span style={{ color: "#64748b", fontSize: "14px" }}>Total Tuition:</span>
+                            <span style={{ fontSize: "22px", fontWeight: 800 }}>{selectedCourseForModal.formattedPrice}</span>
                         </div>
-
-                        <div className="sp-modal-actions">
-                            <button
-                                type="button"
-                                className="sp-enroll-btn"
-                                style={{ flex: 1, justifyContent: "center", padding: "14px 20px", fontSize: "15px" }}
-                                onClick={handleConfirmEnrollment}
-                            >
-                                Confirm & Complete Enrollment
-                            </button>
-                        </div>
+                        <button
+                            type="button"
+                            className="sp-enroll-btn"
+                            style={{ width: "100%", marginTop: "14px", padding: "12px", fontSize: "14px", backgroundColor: accentColor }}
+                            onClick={handleConfirmEnrollment}
+                        >
+                            Confirm & Complete Enrollment
+                        </button>
                     </div>
                 </div>
             )}
 
-            {/* Instant Toast Notification */}
             {toastMessage && (
-                <div className="sp-toast" role="status">
+                <div className="sp-toast">
                     <span>{toastMessage}</span>
                 </div>
             )}
